@@ -1,0 +1,19 @@
+azure:
+  storage:
+    account:
+      blob-url: https://shankstorageacc.blob.core.windows.net
+      queue-url: https://shankstorageacc.queue.core.windows.net
+      token: ?sv=2019-12-12&ss=bfq&srt=sco&sp=rwlacupx&se=2020-12-23T18:46:07Z&st=2020-12-22T10:46:07Z&spr=https&sig=GdLsv3jYLCKGlXzD4ZUAgNVxjOfCHSKo8BveEqqDVGI%3D
+      blob-container: blobcontainer
+  cosmos:
+    url: https://shankcosmosacc.documents.azure.com:443
+    key: OHs4JN6LuIIFEEjJTY11Eh7ppPX1gNq82cGYuteKIxmdOXGdcoyOt5guJG51SM2Jfaca4oI9xBM71PNeIFHavg==
+    database: WebAppDb
+    container: todos
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://login.microsoftonline.com/413db24b-63ef-4558-9a33-2308024b166b/v2.0
