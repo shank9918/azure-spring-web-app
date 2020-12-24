@@ -60,4 +60,14 @@ public class AzureCosmosDbService {
 		});
 		return todos;
 	}
+
+	public void deleteTodo(String id) {
+		CosmosItemRequestOptions cosmosItemRequestOptions = new CosmosItemRequestOptions();
+		cosmosContainer.deleteItem(id, new PartitionKey(id), cosmosItemRequestOptions);
+	}
+
+	public void updateTodo(String id, Todo todo) {
+		CosmosItemRequestOptions cosmosItemRequestOptions = new CosmosItemRequestOptions();
+		cosmosContainer.replaceItem(todo, id, new PartitionKey(id), cosmosItemRequestOptions);
+	}
 }

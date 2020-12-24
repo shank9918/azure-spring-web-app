@@ -1,14 +1,18 @@
 package com.shashankg.azure.cert.webapp.controller;
 
+import com.shashankg.azure.cert.webapp.exceptions.NoResultException;
 import com.shashankg.azure.cert.webapp.model.Todo;
 import com.shashankg.azure.cert.webapp.service.AzureCosmosDbService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +22,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "*")
 public class TodoController {
 
 	private final AzureCosmosDbService azureCosmosDbService;
@@ -47,6 +52,26 @@ public class TodoController {
 	@ResponseBody
 	public ResponseEntity<Todo> fetchTodoById(@PathVariable String id) {
 		log.info("Fetching todo {}", id);
-		return ResponseEntity.ok(this.azureCosmosDbService.fetchTodoById(id).get(0));
+		List<Todo> todos = this.azureCosmosDbService.fetchTodoById(id);
+		if (!todos.isEmpty()) {
+			return ResponseEntity.ok(todos.get(0));
+		}
+		throw new NoResultException("No entry found for " + id);
+	}
+
+	@DeleteMapping(value = "/todo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> deleteTodo(@PathVariable String id) {
+		log.info("Deleting todo {}", id);
+		this.azureCosmosDbService.deleteTodo(id);
+		return ResponseEntity.ok("Deleted: " + id);
+	}
+
+	@PutMapping(value = "/todo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> updateTodo(@PathVariable String id, @RequestBody Todo todo) {
+		log.info("Updating todo {}", id);
+		this.azureCosmosDbService.updateTodo(id, todo);
+		return ResponseEntity.ok("Updated: " + id);
 	}
 }

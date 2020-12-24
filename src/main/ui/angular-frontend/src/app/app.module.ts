@@ -22,6 +22,7 @@ import {TodoEditComponent} from './todo-edit/todo-edit.component';
 import {HomeComponent} from './home/home.component';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {TodoService} from './todo.service';
 
 // checks if the app is running on IE
 export const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
@@ -98,7 +99,8 @@ function MSALAngularConfigFactory(): MsalAngularConfiguration {
       provide: MSAL_CONFIG_ANGULAR,
       useFactory: MSALAngularConfigFactory
     },
-    MsalService
+    MsalService,
+    TodoService
   ],
   bootstrap: [AppComponent]
 })
