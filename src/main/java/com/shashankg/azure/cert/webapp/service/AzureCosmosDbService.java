@@ -7,6 +7,7 @@ import com.azure.cosmos.models.CosmosQueryRequestOptions;
 import com.azure.cosmos.models.PartitionKey;
 import com.azure.cosmos.util.CosmosPagedIterable;
 import com.shashankg.azure.cert.webapp.model.Todo;
+import com.shashankg.azure.cert.webapp.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,13 +32,13 @@ public class AzureCosmosDbService {
 		log.info("Created {} in {} duration.", cosmosItemResponse.getItem(), cosmosItemResponse.getDuration());
 	}
 
-	public List<Todo> fetchTodo() {
+	public List<Todo> fetchTodo(User user) {
 		List<Todo> todos = new ArrayList<>();
 		CosmosQueryRequestOptions queryOptions = new CosmosQueryRequestOptions();
 		queryOptions.setQueryMetricsEnabled(true);
 
 		CosmosPagedIterable<Todo> usersPagedIterable = cosmosContainer.queryItems(
-				"SELECT * FROM Todo", queryOptions, Todo.class);
+				"SELECT * FROM Todo where Todo.user.name='" + user.getName() + '\'' + "and Todo.user.email='" + user.getEmail() + '\'', queryOptions, Todo.class);
 		usersPagedIterable.iterableByPage(10).forEach(userFeedResponse -> {
 			log.info("Got a page of query result with {} items(s) and request charge of {}",
 					userFeedResponse.getResults().size(), userFeedResponse.getRequestCharge());

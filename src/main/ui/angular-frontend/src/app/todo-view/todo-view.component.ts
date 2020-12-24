@@ -42,6 +42,7 @@ export class TodoViewComponent implements OnInit {
   }
 
   getTodos(): void {
+    console.log('Getting List');
     this.service.getTodos().subscribe({
       next: (response: Todo[]) => {
         this.todos = response;
@@ -67,6 +68,7 @@ export class TodoViewComponent implements OnInit {
 
   addTodo(add: NgForm): void {
     this.service.postTodo(add.value).subscribe(() => {
+      console.log('Refreshing List.');
       this.getTodos();
     });
     add.resetForm();

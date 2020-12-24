@@ -9,16 +9,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Todo {
+public class User {
 
-	private String id;
-	private User user;
-	private String todoItem;
-	private Status status;
-}
-
-enum Status {
-	SCHEDULED,
-	IN_PROGRESS,
-	COMPLETED
+	private String name;
+	private String email;
 }

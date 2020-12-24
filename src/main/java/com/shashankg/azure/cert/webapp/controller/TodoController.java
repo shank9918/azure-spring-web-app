@@ -2,6 +2,7 @@ package com.shashankg.azure.cert.webapp.controller;
 
 import com.shashankg.azure.cert.webapp.exceptions.NoResultException;
 import com.shashankg.azure.cert.webapp.model.Todo;
+import com.shashankg.azure.cert.webapp.model.User;
 import com.shashankg.azure.cert.webapp.service.AzureCosmosDbService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,18 +36,18 @@ public class TodoController {
 
 	@PostMapping(value = "/todo", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<String> addTodo(@RequestBody Todo todo) {
+	public void addTodo(@RequestBody Todo todo, @RequestAttribute User user) {
 		todo.setId(UUID.randomUUID().toString());
+		todo.setUser(user);
 		this.azureCosmosDbService.addTodo(todo);
 		log.info("Created {}.", todo);
-		return ResponseEntity.ok("Created");
 	}
 
 	@GetMapping(value = "/todo", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<Todo>> fetchTodo() {
+	public ResponseEntity<List<Todo>> fetchTodo(@RequestAttribute User user) {
 		log.info("Fetching todo.");
-		return ResponseEntity.ok(this.azureCosmosDbService.fetchTodo());
+		return ResponseEntity.ok(this.azureCosmosDbService.fetchTodo(user));
 	}
 
 	@GetMapping(value = "/todo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,17 +63,15 @@ public class TodoController {
 
 	@DeleteMapping(value = "/todo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<String> deleteTodo(@PathVariable String id) {
+	public void deleteTodo(@PathVariable String id) {
 		log.info("Deleting todo {}", id);
 		this.azureCosmosDbService.deleteTodo(id);
-		return ResponseEntity.ok("Deleted: " + id);
 	}
 
 	@PutMapping(value = "/todo/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<String> updateTodo(@PathVariable String id, @RequestBody Todo todo) {
+	public void updateTodo(@PathVariable String id, @RequestBody Todo todo) {
 		log.info("Updating todo {}", id);
 		this.azureCosmosDbService.updateTodo(id, todo);
-		return ResponseEntity.ok("Updated: " + id);
 	}
 }
