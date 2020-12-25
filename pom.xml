@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>web-app</name>
 	<description>Spring Web App</description>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<properties>
 		<azure.containerRegistry>shank9918</azure.containerRegistry>
@@ -58,11 +58,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!--<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
-		</dependency>-->
+		</dependency>
 
 		<!--Azure Storage-->
 		<dependency>
@@ -92,53 +92,7 @@
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-			<resource>
-				<directory>src/main/ui/angular-frontend/dist/angular-frontend</directory>
-				<targetPath>static</targetPath>
-			</resource>
-		</resources>
 		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>${exec.maven.plugin.version}</version>
-				<executions>
-					<execution>
-						<id>exec-npm-install</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<workingDirectory>${basedir}/src/main/ui/angular-frontend</workingDirectory>
-							<executable>npm</executable>
-							<arguments>
-								<argument>install</argument>
-							</arguments>
-						</configuration>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>exec-npm-ng-build</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<workingDirectory>${basedir}/src/main/ui/angular-frontend</workingDirectory>
-							<executable>ng</executable>
-							<arguments>
-								<argument>build</argument>
-								<argument>--prod</argument>
-								<argument>--aot</argument>
-							</arguments>
-						</configuration>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
