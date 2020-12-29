@@ -97,3 +97,4 @@ Follow these steps to package Spring Boot application as a WAR:
 - [Sign in users and call the Microsoft Graph API from an Angular single-page application](https://docs.microsoft.com/en-us/azure/active-directory/develop/tutorial-v2-angular)
 - [Spring REST API + OAuth2 + Angular](https://www.baeldung.com/rest-api-spring-oauth2-angular)
 - [An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API](https://github.com/shank9918/ms-identity-javascript-angular-spa-aspnetcore-webapi)
+- [Reading a secret from Azure Key Vault in a Spring Boot application](https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-key-vault)
