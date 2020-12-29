@@ -1,19 +1,20 @@
 azure:
+  keyvault:
+    enabled: true
+    client-id: c78bfb9a-93b4-4d27-ba10-8697ec742a25
+    tenant: 36629bb3-ed1f-45cb-83cb-467bcc57e49e
+    uri: https://shankkeyvault.vault.azure.net/
   storage:
     account:
-      blob-url: https://bbbb.blob.core.windows.net
-      queue-url: https://qqqq.queue.core.windows.net
-      token: <sas-token>
-      blob-container: <blob-container>
+      blob-container: blobcontainer
   cosmos:
-    url: https://cccc.documents.azure.com:443
-    key: <key>
-    database: <database>
-    container: <container>
+    account:
+      database: WebAppDb
+      container: todos
 
 spring:
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: <issuer-uri>
+          issuer-uri: https://login.microsoftonline.com/413db24b-63ef-4558-9a33-2308024b166b/v2.0

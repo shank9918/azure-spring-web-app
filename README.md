@@ -1,5 +1,5 @@
 # web-app
-- A Spring Boot application with packaged Angular frontend.
+- A Spring Boot application acting as a Resource Server
 - Azure Active Directory for Authentication and Authorization
 - Angular Frontend manages the retrieval and refreshing of tokens
 - Uses Oauth2.0 Implicit flow
@@ -7,12 +7,13 @@
 - Uses azure-webapp-maven-plugin to get the WAR deployed to Azure Web App
 - Configures Azure Storage Blob and Queue 
 - Uses Azure Cosmos Db for storing Todo in JSON format
+- Integrated with Azure Key Vault
 
 # Deployment Steps
 1. Login to Azure platform and create a service principal using Azure CLI
 
 ```
-az ad sp create-for-rbac --name "apring-boot-app"
+az ad sp create-for-rbac --name "spring-boot-app-sp"
 ```
 This will give client and tenant information which can be used to publish any application to Azure Web App
 

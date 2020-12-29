@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static com.shashankg.azure.cert.webapp.constants.AzureConstants.QUEUE_URL;
+
 @Slf4j
 @Configuration
 public class AzureStorageQueueConfig {
@@ -14,9 +16,9 @@ public class AzureStorageQueueConfig {
 	private final String queueServiceUrl;
 	private final String token;
 
-	public AzureStorageQueueConfig(@Value("${azure.storage.account.queue-url}") String queueServiceUrl,
-	                               @Value("${azure.storage.account.token}") String token) {
-		this.queueServiceUrl = queueServiceUrl;
+	public AzureStorageQueueConfig(@Value("${azure-storage-account-name}") String storageAccountName,
+	                               @Value("${azure-storage-account-token}") String token) {
+		this.queueServiceUrl = "http://" + storageAccountName + QUEUE_URL;
 		this.token = token;
 	}
 

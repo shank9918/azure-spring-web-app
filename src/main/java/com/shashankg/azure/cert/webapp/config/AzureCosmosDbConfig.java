@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
 
+import static com.shashankg.azure.cert.webapp.constants.AzureConstants.COSMOS_URL;
+
 @Configuration
 public class AzureCosmosDbConfig {
 
@@ -19,11 +21,11 @@ public class AzureCosmosDbConfig {
 	private final String database;
 	private final String container;
 
-	public AzureCosmosDbConfig(@Value("${azure.cosmos.url}") String endpoint,
-	                           @Value("${azure.cosmos.key}") String key,
-	                           @Value("${azure.cosmos.database}") String database,
-	                           @Value("${azure.cosmos.container}") String container) {
-		this.endpoint = endpoint;
+	public AzureCosmosDbConfig(@Value("${azure-cosmos-account-name}") String name,
+	                           @Value("${azure-cosmos-account-key}") String key,
+	                           @Value("${azure.cosmos.account.database}") String database,
+	                           @Value("${azure.cosmos.account.container}") String container) {
+		this.endpoint = "https://" + name + COSMOS_URL;
 		this.key = key;
 		this.database = database;
 		this.container = container;

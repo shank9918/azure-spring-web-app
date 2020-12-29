@@ -18,6 +18,7 @@
 	<properties>
 		<azure.containerRegistry>shank9918</azure.containerRegistry>
 		<azure-webapp-maven-plugin.version>1.1.0</azure-webapp-maven-plugin.version>
+		<azure.version>2.3.5</azure.version>
 		<docker.image.prefix>${azure.containerRegistry}.azurecr.io</docker.image.prefix>
 		<docker-maven-plugin.version>1.4.13</docker-maven-plugin.version>
 		<exec.maven.plugin.version>1.6.0</exec.maven.plugin.version>
@@ -88,7 +89,25 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 		</dependency>
+
+		<!--Azure Key Vault-->
+		<dependency>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>azure-keyvault-secrets-spring-boot-starter</artifactId>
+		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.microsoft.azure</groupId>
+				<artifactId>azure-spring-boot-bom</artifactId>
+				<version>${azure.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<finalName>${project.artifactId}</finalName>

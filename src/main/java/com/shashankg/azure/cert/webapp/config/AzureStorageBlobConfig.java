@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static com.shashankg.azure.cert.webapp.constants.AzureConstants.BLOB_URL;
+
 @Slf4j
 @Configuration
 public class AzureStorageBlobConfig {
@@ -15,10 +17,10 @@ public class AzureStorageBlobConfig {
 	private final String token;
 	private final String container;
 
-	public AzureStorageBlobConfig(@Value("${azure.storage.account.blob-url}") String storageAccountUrl,
-	                              @Value("${azure.storage.account.token}") String token,
+	public AzureStorageBlobConfig(@Value("${azure-storage-account-name}") String storageAccountName,
+	                              @Value("${azure-storage-account-token}") String token,
 	                              @Value("${azure.storage.account.blob-container}") String container) {
-		this.storageAccountUrl = storageAccountUrl;
+		this.storageAccountUrl = "https://" + storageAccountName + BLOB_URL;
 		this.token = token;
 		this.container = container;
 	}
