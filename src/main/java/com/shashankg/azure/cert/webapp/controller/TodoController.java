@@ -4,6 +4,7 @@ import com.shashankg.azure.cert.webapp.exceptions.NoResultException;
 import com.shashankg.azure.cert.webapp.model.Todo;
 import com.shashankg.azure.cert.webapp.model.User;
 import com.shashankg.azure.cert.webapp.service.AzureCosmosDbService;
+import com.shashankg.azure.cert.webapp.service.AzureFunctionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,10 +29,12 @@ import java.util.UUID;
 public class TodoController {
 
 	private final AzureCosmosDbService azureCosmosDbService;
+	private final AzureFunctionService azureFunctionService;
 
 	@Autowired
-	public TodoController(AzureCosmosDbService azureCosmosDbService) {
+	public TodoController(AzureCosmosDbService azureCosmosDbService, AzureFunctionService azureFunctionService) {
 		this.azureCosmosDbService = azureCosmosDbService;
+		this.azureFunctionService = azureFunctionService;
 	}
 
 	@PostMapping(value = "/todo", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,6 +43,7 @@ public class TodoController {
 		todo.setId(UUID.randomUUID().toString());
 		todo.setUser(user);
 		this.azureCosmosDbService.addTodo(todo);
+		azureFunctionService.callFunctionApp(todo);
 		log.info("Created {}.", todo);
 	}
 
