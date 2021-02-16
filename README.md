@@ -98,3 +98,9 @@ Follow these steps to package Spring Boot application as a WAR:
 - [Spring REST API + OAuth2 + Angular](https://www.baeldung.com/rest-api-spring-oauth2-angular)
 - [An Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API](https://github.com/shank9918/ms-identity-javascript-angular-spa-aspnetcore-webapi)
 - [Reading a secret from Azure Key Vault in a Spring Boot application](https://docs.microsoft.com/en-us/azure/developer/java/spring-framework/configure-spring-boot-starter-java-app-with-azure-key-vault)
+
+## Azure AD for calls to secured Azure Function
+- [Configure Authentication Provider AAD](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad)
+- [OAuth2 Client Credentials Grant Flow](https://docs.microsoft.com/en-us/azure/active-directory/azuread-dev/v1-oauth2-client-creds-grant-flow)
+- [Add App Roles in Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps)
+- [Microsoft Authentication Library for Java](https://github.com/AzureAD/microsoft-authentication-library-for-java)
