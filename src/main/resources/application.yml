@@ -11,10 +11,24 @@ azure:
     account:
       database: WebAppDb
       container: todos
+  function:
+    todo:
+      resource: 9563a8f1-8a9d-4708-bba7-56d4663d41b3/.default
+      uri: https://todo-fnc-app.azurewebsites.net/api/TodoHttpFunction
+  web-app:
+    client-id: 17912c9f-3aa5-4dc1-97f5-016255cb8a3b
+    client-secret: cF-hID8aLs_DkD~cAN-l-Cab49NZ0_LyE1
+    authority: https://login.microsoftonline.com/36629bb3-ed1f-45cb-83cb-467bcc57e49e/
 
 spring:
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://login.microsoftonline.com/413db24b-63ef-4558-9a33-2308024b166b/v2.0
+          issuer-uri: https://sts.windows.net/36629bb3-ed1f-45cb-83cb-467bcc57e49e/
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
